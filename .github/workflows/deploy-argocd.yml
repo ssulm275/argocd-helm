@@ -16,6 +16,12 @@ jobs:
     - name: Set up Kubernetes (kind)
       uses: helm/kind-action@v1.6.0
 
+    - name: Export kubeconfig for kind cluster
+      run: |
+        mkdir -p ~/.kube
+        kind get kubeconfig > ~/.kube/config
+        kubectl cluster-info  # Just to verify connectivity
+
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
       with:
